@@ -28,7 +28,7 @@ Important points :
 `ln -s $VITASDK/arm-vita-eabi/lib/libc.a $VITASDK/arm-vita-eabi/lib/libc_p.a` (we do not need to profile the standard library)
 - You must create the fself without ASLR (Address Space Layout Randomization), exemple `vita-make-fself -na`
 - You must link with libvitagprof.a by adding for example `-lvitagprof` to your LDFLAGS. SceLibKernel_stub is also needed.
-- Your program must end by calling `gprof_stop("ux0:/data/gmon.out", 1);` (add `#include <vitagprof.h>`). You can choose the destination file
+- Your program must call `gprof_start()` and then call `gprof_stop("ux0:/data/gmon.out", 1);` (add `#include <vitagprof.h>`). You can choose the destination file. Only calls done between `gprof_start()` and `gprofstop()` will be effectively recorded.
 
 When you app is built you can run it on the Vita and then properly exit the app.
 The gmon.out file will be created at the specified destination.

@@ -281,7 +281,8 @@ void _mcount_internal(unsigned int frompc, unsigned int selfpc)
 
     if (initialized == 0)
     {
-        initialize();
+        /* gprof has not been initialized, ignore any calls until it is initialized */
+        return;
     }
 
     if (gp.state != GMON_PROF_ON)
